@@ -25,10 +25,10 @@ public class HomeController {
         return "manageSchoolInfo"; // Navigates to /WEB-INF/views/manageSchoolInfo.jsp
     }
     
-    @RequestMapping("/manage-school")
+    @RequestMapping("/view-school-list")
     public ModelAndView manageSchool() {
-        ModelAndView modelAndView = new ModelAndView("manageSchool");
-        modelAndView.addObject("currentPage", "manageSchool");
+        ModelAndView modelAndView = new ModelAndView("viewSchoolList");
+        modelAndView.addObject("currentPage", "viewSchoolList");
         return modelAndView;
     }
 
