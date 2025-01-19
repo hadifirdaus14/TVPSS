@@ -236,17 +236,16 @@ table tbody tr:nth-child(odd) {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="school" items="${schools}">
+						<c:forEach var="school" items="${school}">
 							<tr id="row${school.id}">
 								<td>${school.id}</td>
-								<td id="code${school.id}" data-code="${school.code}">${school.code}</td>
-								<td id="name${school.id}" data-name="${school.name}">${school.name}</td>
-								<td id="type${school.id}" data-type="${school.type}">${school.type}</td>
-								<td id="district${school.id}" data-district="${school.district}">${school.district}</td>
+								<td>${school.code}</td>
+								<td>${school.name}</td>
+								<td>${school.type}</td>
+								<td>${school.district}</td>
 								<td>
 									<button class="btn btn-edit" onclick="editRecord">Edit</button>
-									<button class="btn btn-delete"
-										onclick="deleteRecord">Delete</button>
+									<button class="btn btn-delete" onclick="deleteRecord">Delete</button>
 								</td>
 							</tr>
 						</c:forEach>
