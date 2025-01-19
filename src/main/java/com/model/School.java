@@ -7,7 +7,10 @@ import javax.persistence.*;
 public class School {
 
     @Id
-    @Column(name = "code")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+	@Column(name = "code")
     private String code;
 
     @Column(name = "name", nullable = false)
@@ -32,6 +35,14 @@ public class School {
     }
 
     // Getters and setters
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
     public String getCode() {
         return code;
     }
