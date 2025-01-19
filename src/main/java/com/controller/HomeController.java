@@ -25,14 +25,14 @@ public class HomeController {
         return "manageSchoolInfo"; // Navigates to /WEB-INF/views/manageSchoolInfo.jsp
     }
     
-    @RequestMapping("/manage-school")
+    @RequestMapping("/view-school-list")
     public ModelAndView manageSchool() {
         ModelAndView modelAndView = new ModelAndView("manageSchool");
         modelAndView.addObject("currentPage", "manageSchool");
         return modelAndView;
     }
 
- // Endpoint to display school list
+    //Endpoint to display school list
     @RequestMapping("/school-list")
     public ModelAndView SchoolList() {
         ModelAndView modelAndView = new ModelAndView("viewSchoolList"); // Make sure the JSP name is correct
@@ -55,7 +55,7 @@ public class HomeController {
         modelAndView.addObject("school", school);    // Pass school to the view
         return modelAndView;
     }
-    
+   
     // Endpoint to handle school update form submission
     @PostMapping("/updateSchool")
     public String updateSchool(@RequestParam("code") String code,

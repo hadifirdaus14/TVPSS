@@ -199,14 +199,12 @@ table tbody tr:nth-child(odd) {
 	<div class="container">
 		<aside class="sidebar">
 			<div class="logo">
-				<img src="tvpss-logo.png" alt="TV PSS">
+				<h2>TVPSS</h2>
 			</div>
 			<ul class="menu">
-				<li>Profile</li>
-				<li>Dashboard</li>
-				<li class="active">School Management</li>
-				<li>Resource</li>
-				<li>Setting</li>
+				<li><a href=" ">Profile</a></li>
+				<li class="active"><a href=" ">School Management</a></li>
+				<li><a href=" ">Resource</a></li>
 			</ul>
 		</aside>
 		<main class="content">
@@ -244,9 +242,8 @@ table tbody tr:nth-child(odd) {
 								<td id="type${school.id}" data-type="${school.type}">${school.type}</td>
 								<td id="district${school.id}" data-district="${school.district}">${school.district}</td>
 								<td>
-									<button class="btn btn-edit" onclick="editRecord">Edit</button>
-									<button class="btn btn-delete"
-										onclick="deleteRecord">Delete</button>
+									<button class="btn btn-edit" ><a href="editSchool.html" class="btn btn-edit">Edit</a></button>
+									<button class="btn btn-delete" onclick="deleteRecord">Delete</button>
 								</td>
 							</tr>
 						</c:forEach>
@@ -256,37 +253,7 @@ table tbody tr:nth-child(odd) {
 		</main>
 	</div>
 
-	<div id="editForm" style="display: none;">
-		<form id="updateForm">
-			<input type="text" id="editCode" name="code"
-				placeholder="School Code"> <input type="text" id="editName"
-				name="name" placeholder="School Name"> <label
-				for="schoolType">School Type:</label> <select id="schoolType"
-				name="schoolType">
-				<option value="primary">Primary School</option>
-				<option value="secondary">Secondary School</option>
-			</select> <input type="text" id="editDistrict" name="district"
-				placeholder="District">
-			<button type="button" onclick="saveRecord(1)">Save</button>
-		</form>
-	</div>
-
 	<script>
-	function editRecord(id) {
-	    // Show the form
-	    document.getElementById('editForm').style.display = 'block';
-
-	    // Pre-fill the form with data
-	    const code = document.getElementById(`code${id}`).getAttribute('data-code');
-	    const name = document.getElementById(`name${id}`).getAttribute('data-name');
-	    const type = document.getElementById(`type${id}`).getAttribute('data-type');
-	    const district = document.getElementById(`district${id}`).getAttribute('data-district');
-
-	    document.getElementById('editCode').value = code;
-	    document.getElementById('editName').value = name;
-	    document.getElementById('schoolType').value = type;
-	    document.getElementById('editDistrict').value = district;
-	}
 
 	function saveRecord(id) {
 	    // Update the row data with the form values

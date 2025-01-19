@@ -69,7 +69,7 @@
         <input type="text" id="district" name="district" value="${school.district}" required />
 
         <button type="submit">Update School</button>
-        <button type="button" class="cancel" onclick="window.location.href='/school-list';">Cancel</button>
+        <button type="button" class="cancel" onclick="window.location.href='/manage-school';">Cancel</button>
     </form>
 </body>
 </html>
