@@ -21,7 +21,7 @@ public class SchoolDAO {
             entityManager.persist(school);
         } catch (Exception e) {
             e.printStackTrace();
-            throw e; // Rethrow to trigger rollback
+            throw e; 
         }
     }
 
