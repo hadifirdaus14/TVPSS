@@ -10,8 +10,11 @@
     <p>Welcome to the School Management System!</p>
     <nav>
         <ul>
-            <li><a href="manageSchool.jsp">Manage School</a></li>
-            <li><a href="manageSchoolInfo.jsp">Manage School Info</a></li>
+            <li><a href="manageSchool">Manage School</a></li>
+            <li><a href="manageSchoolInfo">Manage School Info</a></li>
+            <li><a href="login">Login</a></li>
+            <li><a href="register">Register</a></li>
+            <li><a href="manageUser">Manage User</a></li>
         </ul>
     </nav>
 </body>

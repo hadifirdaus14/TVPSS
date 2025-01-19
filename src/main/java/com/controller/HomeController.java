@@ -72,6 +72,13 @@ public class HomeController {
         return "redirect:/school-list";
     }
     
+    @RequestMapping("/manageUser")
+    public ModelAndView manageUser() {
+        ModelAndView modelAndView = new ModelAndView("manageUser");
+        modelAndView.addObject("currentPage", "manageUser");
+        return modelAndView;
+    }
+    
     @GetMapping("/")
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView("home");
