@@ -40,10 +40,9 @@ public class PICDAO {
 	            .uniqueResult();
 	}
 
-
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public List<PIC> getAllTeachers() {
+	public List<PIC> getAllPICs() {
 		return getCurrentSession().createQuery("from pic").list();
 	}
 

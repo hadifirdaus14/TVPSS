@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.service.PICDAO;
 import com.service.SchoolDAO;
 import com.model.*;
 
@@ -19,6 +20,9 @@ public class HomeController {
 
 	@Autowired //dependency injection
     private SchoolDAO schoolDAO;
+	
+	@Autowired //dependency injection
+    private PICDAO picDao;
 
 	//Endpoint to display school list for schoolPIC/crew
     @RequestMapping("/manageSchoolInfo")
@@ -54,9 +58,12 @@ public class HomeController {
     public ModelAndView manageUser() {
         ModelAndView modelAndView = new ModelAndView("manageUser");
         modelAndView.addObject("currentPage", "manageUser");
+
+        // Fetch the list of users using getAllTeachers
+        List<PIC> pics = picDao.getAllPICs();
+        modelAndView.addObject("pics", pics);
+
         return modelAndView;
-        
-        
     }
     
     @GetMapping("/")
