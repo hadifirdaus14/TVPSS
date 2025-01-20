@@ -182,7 +182,7 @@ table tbody tr:nth-child(odd) {
 				</div>
 			</header>
 			<section class="school-list">
-				<h1>School Management</h1>
+				<h1>School List</h1>
 				<div class="search-bar">
 					<input type="text" placeholder="Search school">
 					<button>Search</button>

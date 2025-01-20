@@ -64,12 +64,12 @@
             <option value="Primary School">Primary School</option>
             <option value="Secondary School">Secondary School</option>
         </select>
-
+        
         <label for="district">District:</label>
         <input type="text" id="district" name="district" placeholder="Enter district" required />
 
         <button type="submit">Add School</button>
-        <button type="button" class="cancel" onclick="window.location.href='/school-list';">Cancel</button>
+        <button type="button" class="cancel" onclick="window.location.href='/view-school-list';">Cancel</button>
     </form>
 </body>
 </html>
