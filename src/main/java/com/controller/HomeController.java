@@ -8,7 +8,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,4 +75,67 @@ public class HomeController {
         modelAndView.addObject("message", "Welcome!");
         return modelAndView; // Navigates to /WEB-INF/views/home.jsp
     }
+
+    @GetMapping("/editUser")
+    public String showEditForm(@RequestParam("id") int id, Model model) {
+        try {
+            PIC pic = picDao.getPICById(id);
+            List<School> schools = schoolDAO.getAllSchools();
+            
+            model.addAttribute("schools",schools);
+            model.addAttribute("pic", pic);
+            return "editUser"; 
+        } catch (Exception e) {
+            return "redirect:/editUser?error=true";
+        }
+    }
+
+    
+    @PostMapping("/deleteUser")
+    public String deleteUser(@RequestParam("id") int id) {
+        try {
+            System.out.println("Delete request received for ID: " + id);
+            picDao.deletePIC(id);
+            return "redirect:/manageUser";
+        } catch (Exception e) {
+            System.err.println("Error during deletion: " + e.getMessage());
+            return "redirect:/manageUser?error=true";
+        }
+    }
+
+    
+    @PostMapping("/updatePic")
+    public String updatePic(@RequestParam int id, 
+                            @RequestParam String name, 
+                            @RequestParam int age, 
+                            @RequestParam int schoolId) {
+        // Fetch the PIC record by ID
+        PIC pic = picDao.findById(id);
+
+        // Update the PIC attributes
+        pic.setName(name);
+        pic.setAge(age);
+
+        // Fetch the school and set it
+        School school = schoolDAO.findById(schoolId);
+        pic.setSchool(school);
+
+        // Save the updated PIC
+        picDao.savePIC(pic);
+
+        // Redirect or return a response
+        return "redirect:/manageUser"; // Redirect back to the list page
+    }
+    
+    @PostMapping("/updateUser")
+    public String updateUser(@ModelAttribute PIC pic, Model model) {
+        // Save the updated school data
+    	System.out.println("Updating PIC: " + pic);
+
+        picDao.updatePIC(pic);
+
+        // Redirect to the management page
+        return "redirect:/manageUser";
+    }
+
 }
