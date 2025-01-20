@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>School Management</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -182,7 +186,7 @@ table tbody tr:nth-child(odd) {
 }
 
 .btn-edit:hover {
-	background-color: #ffc00b ;
+	background-color: #ffc00b;
 }
 
 .btn-delete {
@@ -203,9 +207,8 @@ table tbody tr:nth-child(odd) {
 			</div>
 			<ul class="menu">
 				<li class="active">Users</li>
-				<li >School Management</li>
-				<li>Resource</li>
-				<li>Setting</li>
+				<li><a href='view-school-list'>School Management</a></li>
+				<li><a href='manageResource'>Resource</a></li>
 			</ul>
 		</aside>
 		<main class="content">
@@ -218,7 +221,7 @@ table tbody tr:nth-child(odd) {
 				</div>
 			</header>
 			<section class="school-list">
-				<h1>User Management</h1>
+				<h1>PIC Management</h1>
 				<div class="search-bar">
 					<input type="text" placeholder="Search student">
 					<button>Search</button>
@@ -227,25 +230,22 @@ table tbody tr:nth-child(odd) {
 					<thead>
 						<tr>
 							<th>No.</th>
-							<th>Code</th>
-							<th>School Name</th>
-							<th>Type</th>
-							<th>District</th>
+							<th>Name</th>
+							<th>Age</th>
+							<th>School</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="school" items="${schools}">
-							<tr id="row${school.id}">
-								<td>${school.id}</td>
-								<td id="code${school.id}" data-code="${school.code}">${school.code}</td>
-								<td id="name${school.id}" data-name="${school.name}">${school.name}</td>
-								<td id="type${school.id}" data-type="${school.type}">${school.type}</td>
-								<td id="district${school.id}" data-district="${school.district}">${school.district}</td>
+						<c:forEach var="pic" items="${pics}">
+							<tr id="row${pic.id}">
+								<td>${pic.id}</td>
+								<td id="name${pic.id}" data-name="${pic.name}">${pic.name}</td>
+								<td id="age${pic.id}" data-age="${pic.age}">${pic.age}</td>
+								<td id="school${pic.id}" data-school="${pic.school_id}">${pic.school_id}</td>
 								<td>
 									<button class="btn btn-edit" onclick="editRecord">Edit</button>
-									<button class="btn btn-delete"
-										onclick="deleteRecord">Delete</button>
+									<button class="btn btn-delete" onclick="deleteRecord">Delete</button>
 								</td>
 							</tr>
 						</c:forEach>
@@ -257,15 +257,16 @@ table tbody tr:nth-child(odd) {
 
 	<div id="editForm" style="display: none;">
 		<form id="updateForm">
-			<input type="text" id="editCode" name="code"
-				placeholder="School Code"> <input type="text" id="editName"
-				name="name" placeholder="School Name"> <label
-				for="schoolType">School Type:</label> <select id="schoolType"
-				name="schoolType">
-				<option value="primary">Primary School</option>
-				<option value="secondary">Secondary School</option>
-			</select> <input type="text" id="editDistrict" name="district"
-				placeholder="District">
+			<input type="text" id="editName" name="name"
+				placeholder="PIC Name"> 
+			<input type="number" id="editAge"
+				name="age" placeholder="PIC age"> 
+			<label for="schoolId" class="form-label">School</label> <select
+					class="form-select" id="schoolId" name="schoolId" required>
+					<option value="">Select school</option>
+					<c:forEach items="${schools}" var="school">
+						<option value="${school.id}">${school.name}</option>
+					</c:forEach>
 			<button type="button" onclick="saveRecord(1)">Save</button>
 		</form>
 	</div>
@@ -276,36 +277,31 @@ table tbody tr:nth-child(odd) {
 	    document.getElementById('editForm').style.display = 'block';
 
 	    // Pre-fill the form with data
-	    const code = document.getElementById(`code${id}`).getAttribute('data-code');
-	    const name = document.getElementById(`name${id}`).getAttribute('data-name');
-	    const type = document.getElementById(`type${id}`).getAttribute('data-type');
-	    const district = document.getElementById(`district${id}`).getAttribute('data-district');
+	    const code = document.getElementById(`code${id}`).getAttribute('data-name');
+	    const name = document.getElementById(`name${id}`).getAttribute('data-age');
+	    const type = document.getElementById(`school${id}`).getAttribute('data-school');
 
-	    document.getElementById('editCode').value = code;
 	    document.getElementById('editName').value = name;
-	    document.getElementById('schoolType').value = type;
-	    document.getElementById('editDistrict').value = district;
+	    document.getElementById('editAge').value = age;
+	    document.getElementById('schoolId').value = schoolId;
 	}
 
 	function saveRecord(id) {
 	    // Update the row data with the form values
-	    const code = document.getElementById('editCode').value;
 	    const name = document.getElementById('editName').value;
-	    const type = document.getElementById('schoolType').value;
-	    const district = document.getElementById('editDistrict').value;
+	    const type = document.getElementById('editAge').value;
+	    const district = document.getElementById('schoolId').value;
 
 	    // Update the table row
-	    document.getElementById(`code${id}`).textContent = code;
-	    document.getElementById(`code${id}`).setAttribute('data-code', code);
 
 	    document.getElementById(`name${id}`).textContent = name;
 	    document.getElementById(`name${id}`).setAttribute('data-name', name);
 
-	    document.getElementById(`type${id}`).textContent = type;
-	    document.getElementById(`type${id}`).setAttribute('data-type', type);
+	    document.getElementById(`age${id}`).textContent = age;
+	    document.getElementById(`age${id}`).setAttribute('data-age', age);
 
-	    document.getElementById(`district${id}`).textContent = district;
-	    document.getElementById(`district${id}`).setAttribute('data-district', district);
+	    document.getElementById(`schoolId${id}`).textContent = schoolId;
+	    document.getElementById(`schoolId${id}`).setAttribute('data-school', schoolId);
 
 	    // Hide the form
 	    document.getElementById('editForm').style.display = 'none';
@@ -321,6 +317,7 @@ table tbody tr:nth-child(odd) {
 	}
 
 	</script>
-
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

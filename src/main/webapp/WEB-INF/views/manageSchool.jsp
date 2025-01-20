@@ -242,7 +242,9 @@ table tbody tr:nth-child(odd) {
 								<td>${school.type}</td>
 								<td id="district${school.id}" data-district="${school.district}">${school.district}</td>
 								<td>
+
 									<a href="${pageContext.request.contextPath}/edit" class="btn btn-edit"> Edit </a>
+                  
 									<button class="btn btn-delete" onclick="deleteRecord">Delete</button>
 								</td>
 							</tr>

@@ -37,6 +37,8 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView("manageUser");
         modelAndView.addObject("currentPage", "manageUser");
         return modelAndView;
+        
+        
     }
     
     @GetMapping("/")
