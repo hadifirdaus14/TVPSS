@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -234,13 +235,13 @@ table tbody tr:nth-child(odd) {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="school" items="${school}">
+						<c:forEach var="school" items="${schools}">
 							<tr id="row${school.id}">
 								<td>${school.id}</td>
 								<td>${school.code}</td>
 								<td>${school.name}</td>
 								<td>${school.type}</td>
-								<td id="district${school.id}" data-district="${school.district}">${school.district}</td>
+								<td>${school.district}</td>
 								<td>
 									<a href="${pageContext.request.contextPath}/edit" class="btn btn-edit"> Edit </a>
 									<button class="btn btn-delete" onclick="deleteRecord">Delete</button>
