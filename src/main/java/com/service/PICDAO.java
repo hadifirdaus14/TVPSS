@@ -10,8 +10,14 @@ import com.model.PIC;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Service
 public class PICDAO {
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -30,25 +36,39 @@ public class PICDAO {
 	public PIC getPIC(int id) {
 		return getCurrentSession().get(PIC.class, id);
 	}
+
+	@Transactional
+	public PIC findById(int id) {
+		return getCurrentSession().get(PIC.class, id);
+	}
+
+	@Transactional
+	public PIC getPICById(int id) {
+	    return entityManager.find(PIC.class, id);
+	}
 	
 	@Transactional
 	public PIC getPICByUserId(int userId) {
-	    String hql = "FROM pic WHERE user_id = :userId";
-	    return getCurrentSession()
-	            .createQuery(hql, PIC.class)
-	            .setParameter("userId", userId)
-	            .uniqueResult();
+		String hql = "FROM pic WHERE user_id = :userId";
+		return getCurrentSession().createQuery(hql, PIC.class).setParameter("userId", userId).uniqueResult();
 	}
 
 	@Transactional
 	@SuppressWarnings("unchecked")
 	public List<PIC> getAllPICs() {
-		return getCurrentSession().createQuery("from pic").list();
+		// Using EntityManager to fetch all PICs
+		return entityManager.createQuery("FROM PIC", PIC.class).getResultList();
 	}
+	
+	@Transactional
+    public void updatePIC(PIC pic) {
+		System.out.println("Updating PIC: " + pic);	
+        entityManager.merge(pic);
+    }
 
 	@Transactional
-	public void deleteTeacher(int id) {
-		PIC pic= getPIC(id);
+	public void deletePIC(int id) {
+		PIC pic = getPIC(id);
 		if (pic != null) {
 			getCurrentSession().delete(pic);
 		}

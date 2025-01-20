@@ -15,6 +15,7 @@ import com.model.User;
 import com.model.PIC;
 import com.service.SchoolDAO;
 import com.service.UserDAO;
+import com.service.CrewDAO;
 import com.service.PICDAO;
 import com.dto.RegistrationDTO;
 
@@ -30,6 +31,9 @@ public class RegistrationController {
     
     @Autowired
     private PICDAO picDao;
+    
+    @Autowired
+    private CrewDAO crewDao;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -68,7 +72,7 @@ public class RegistrationController {
             userDao.save(user);
 
             // If registering as a student, create student record
-            if ("STUDENT".equals(registrationDto.getUserType())) {
+            if ("CREW".equals(registrationDto.getUserType())) {
                 if (registrationDto.getYear() < 1 || registrationDto.getYear() > 6) {
                     redirectAttributes.addFlashAttribute("error", "Invalid year for student");
                     return "redirect:/register";
@@ -82,13 +86,13 @@ public class RegistrationController {
                 }
 
                 Crew crew = new Crew();
-                crew.setName(registrationDto.getFirstName() + " " + registrationDto.getLastName());
+                crew.setName(registrationDto.getName());
                 crew.setYear(registrationDto.getYear());
                 crew.setAge(registrationDto.getAge());
                 crew.setUser(user);
                 crew.setSchool(school);
                 
-                userDao.saveCrew(crew);
+                crewDao.saveCrew(crew);
             }
             else if("PIC".equals(registrationDto.getUserType())) {
             	School school = schoolDao.getSchoolById(registrationDto.getSchoolId());
@@ -98,7 +102,7 @@ public class RegistrationController {
                 }
 
                 PIC pic= new PIC();
-                pic.setName(registrationDto.getFirstName() + " " + registrationDto.getLastName());
+                pic.setName(registrationDto.getName());
                 pic.setAge(registrationDto.getAge());
                 pic.setUser(user);
                 pic.setSchool(school);

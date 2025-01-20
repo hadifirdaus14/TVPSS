@@ -237,14 +237,14 @@ table tbody tr:nth-child(odd) {
 					<tbody>
 						<c:forEach var="pic" items="${pics}">
 							<tr id="row${pic.id}">
-								<td>${pic.id}</td>
-								<td id="name${pic.id}" data-name="${pic.name}">${pic.name}</td>
-								<td id="age${pic.id}" data-age="${pic.age}">${pic.age}</td>
-								<td id="school${pic.id}" data-school="${pic.school_id}">${pic.school_id}</td>
-								<td>
-									<button class="btn btn-edit" onclick="editRecord">Edit</button>
-									<button class="btn btn-delete" onclick="deleteRecord">Delete</button>
-								</td>
+							    <td>${pic.id}</td>
+							    <td data-name="${pic.name}">${pic.name}</td>
+							    <td data-age="${pic.age}">${pic.age}</td>
+							    <td data-school="${pic.school.name}">${pic.school.name}</td>
+							    <td>
+							        <button class="btn btn-edit" onclick="editForm('${pic.id}')">Edit</button>
+							        <button class="btn btn-delete" onclick="deleteRecord('${pic.id}')">Delete</button>
+							    </td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -254,69 +254,53 @@ table tbody tr:nth-child(odd) {
 	</div>
 	
 
-	<div id="editForm" style="display: none;">
-		<form id="updateForm">
-			<input type="text" id="editName" name="name"
-				placeholder="PIC Name"> 
-			<input type="number" id="editAge"
-				name="age" placeholder="PIC age"> 
-			<label for="schoolId" class="form-label">School</label> 
-			<select class="form-select" id="schoolId" name="schoolId" required>
-					<option value="">Select school</option>
-					<c:forEach items="${schools}" var="school">
-						<option value="${school.id}">${school.name}</option>
-					</c:forEach>
-			</select>
-			<button type="button" onclick="saveRecord(1)">Save</button>
-		</form>
-	</div>
+<script>
+function editForm(id) {
+    console.log("Editing school with ID:", id);
+    // Create and submit a form to navigate to edit page
+    const form = document.createElement('form');
+    form.method = 'GET';
+    form.action = 'editUser';
 
-	<script>
-	function editRecord(id) {
-	    // Show the form
-	    document.getElementById('editForm').style.display = 'block';
+    // Create hidden input for ID
+    const idInput = document.createElement('input');
+    idInput.type = 'hidden';
+    idInput.name = 'id';
+    idInput.value = id;
 
-	    // Pre-fill the form with data
-	    const code = document.getElementById(`code${id}`).getAttribute('data-name');
-	    const name = document.getElementById(`name${id}`).getAttribute('data-age');
-	    const type = document.getElementById(`school${id}`).getAttribute('data-school');
+    // Add input to form
+    form.appendChild(idInput);
 
-	    document.getElementById('editName').value = name;
-	    document.getElementById('editAge').value = age;
-	    document.getElementById('schoolId').value = schoolId;
-	}
+    // Add form to document and submit
+    document.body.appendChild(form);
+    form.submit();
+}
 
-	function saveRecord(id) {
-	    // Update the row data with the form values
-	    const name = document.getElementById('editName').value;
-	    const type = document.getElementById('editAge').value;
-	    const district = document.getElementById('schoolId').value;
+function deleteRecord(id) {
+    console.log("Attempting to delete school with ID:", id);
+    
+    if (confirm("Are you sure you want to delete this school?")) {
+        // Create a form dynamically
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'deleteUser';
 
-	    // Update the table row
+        // Create hidden input for ID
+        const idInput = document.createElement('input');
+        idInput.type = 'hidden';
+        idInput.name = 'id';
+        idInput.value = id;
 
-	    document.getElementById(`name${id}`).textContent = name;
-	    document.getElementById(`name${id}`).setAttribute('data-name', name);
+        // Add the input to form
+        form.appendChild(idInput);
 
-	    document.getElementById(`age${id}`).textContent = age;
-	    document.getElementById(`age${id}`).setAttribute('data-age', age);
-
-	    document.getElementById(`schoolId${id}`).textContent = schoolId;
-	    document.getElementById(`schoolId${id}`).setAttribute('data-school', schoolId);
-
-	    // Hide the form
-	    document.getElementById('editForm').style.display = 'none';
-	}
-
-	function deleteRecord(id) {
-	    if (confirm("Are you sure you want to delete this record?")) {
-	        const row = document.getElementById(`row${id}`);
-	        if (row) {
-	            row.remove();
-	        }
-	    }
-	}
-
-	</script>
+        // Add form to document and submit
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
+</script>
+	
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
