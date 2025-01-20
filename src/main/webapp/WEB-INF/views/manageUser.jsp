@@ -202,12 +202,10 @@ table tbody tr:nth-child(odd) {
 <body>
 	<div class="container">
 		<aside class="sidebar">
-			<div class="logo">
-				<img src="tvpss-logo.png" alt="TV PSS">
-			</div>
+			<header>TVPSS</header>
 			<ul class="menu">
 				<li class="active">Users</li>
-				<li><a href='view-school-list'>School Management</a></li>
+				<li><a href='manageUser'>School Management</a></li>
 				<li><a href='manageResource'>Resource</a></li>
 			</ul>
 		</aside>
@@ -261,12 +259,13 @@ table tbody tr:nth-child(odd) {
 				placeholder="PIC Name"> 
 			<input type="number" id="editAge"
 				name="age" placeholder="PIC age"> 
-			<label for="schoolId" class="form-label">School</label> <select
-					class="form-select" id="schoolId" name="schoolId" required>
+			<label for="schoolId" class="form-label">School</label> 
+			<select class="form-select" id="schoolId" name="schoolId" required>
 					<option value="">Select school</option>
 					<c:forEach items="${schools}" var="school">
 						<option value="${school.id}">${school.name}</option>
 					</c:forEach>
+			</select>
 			<button type="button" onclick="saveRecord(1)">Save</button>
 		</form>
 	</div>
