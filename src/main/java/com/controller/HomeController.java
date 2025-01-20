@@ -25,51 +25,11 @@ public class HomeController {
         return "manageSchoolInfo"; // Navigates to /WEB-INF/views/manageSchoolInfo.jsp
     }
     
-    @RequestMapping("/view-school-list")
+    @RequestMapping("/manageSchool")
     public ModelAndView manageSchool() {
         ModelAndView modelAndView = new ModelAndView("manageSchool");
         modelAndView.addObject("currentPage", "manageSchool");
         return modelAndView;
-    }
-
-    //Endpoint to display school list
-    @RequestMapping("/school-list")
-    public ModelAndView SchoolList() {
-        ModelAndView modelAndView = new ModelAndView("viewSchoolList"); // Make sure the JSP name is correct
-        try {
-            // Fetch the list of schools from the DAO
-            List<School> schools = schoolDAO.getAllSchools();
-            modelAndView.addObject("schools", schools); // Use 'schools' instead of 'school' for plural consistency
-            modelAndView.addObject("currentPage", "SchoolList");
-        } catch (Exception e) {
-            modelAndView.addObject("error", "Error fetching schools: " + e.getMessage());
-        }
-        return modelAndView;
-    }
-    
-    // Endpoint to fetch school details for editing
-    @GetMapping("/edit")
-    public ModelAndView editSchool(@RequestParam("id") int id) {
-        ModelAndView modelAndView = new ModelAndView("editSchool");
-        School school = schoolDAO.getSchoolById(id); // Fetch school details
-        modelAndView.addObject("school", school);    // Pass school to the view
-        return modelAndView;
-    }
-   
-    // Endpoint to handle school update form submission
-    @PostMapping("/updateSchool")
-    public String updateSchool(@RequestParam("code") String code,
-                               @RequestParam("name") String name,
-                               @RequestParam("type") String type,
-                               @RequestParam("district") String district) {
-        // Create a new school object with updated details
-        School school = new School(code, name, type, district);
-        
-        // Update the school in the database
-        schoolDAO.updateSchool(school);
-        
-        // Redirect to the school list page after updating
-        return "redirect:/school-list";
     }
     
     @RequestMapping("/manageUser")
