@@ -40,7 +40,6 @@ public class PICDAO {
 	            .uniqueResult();
 	}
 
-
 	@Transactional
 	@SuppressWarnings("unchecked")
 	public List<PIC> getAllPICs() {

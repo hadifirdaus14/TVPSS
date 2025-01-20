@@ -87,7 +87,6 @@ public class HomeController {
 
         return modelAndView;
     }
-
     
     @GetMapping("/")
     public ModelAndView home() {

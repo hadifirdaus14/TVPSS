@@ -252,6 +252,7 @@ table tbody tr:nth-child(odd) {
 			</section>
 		</main>
 	</div>
+	
 
 	<div id="editForm" style="display: none;">
 		<form id="updateForm">
