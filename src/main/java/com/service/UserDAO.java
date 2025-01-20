@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.model.Crew;
 import com.model.User;
 import java.util.List;
 
@@ -82,9 +83,9 @@ public class UserDAO {
         return count > 0;
     }
     
-//    @Transactional
-//    public void saveStudent(Student student) {
-//        Session currentSession = sessionFactory.getCurrentSession();
-//        currentSession.saveOrUpdate(student);
-//    }
+    @Transactional
+    public void saveCrew(Crew crew) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.saveOrUpdate(crew);
+   }
 }
