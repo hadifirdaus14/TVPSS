@@ -7,157 +7,195 @@
 <meta charset="UTF-8">
 <title>School Management</title>
 <style>
-body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-}
+:root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5f6fa;
+            --danger-color: #e74c3c;
+            --edit-color: #f39c12;
+            --text-color: #2c3e50;
+            --sidebar-width: 250px;
+        }
 
-.container {
-	display: flex;
-	height: 100vh;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
 
-.sidebar {
-	width: 250px;
-	background-color: #f8f9fa;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 20px 0;
-	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
 
-.sidebar .logo img {
-	width: 80%;
-	margin-bottom: 30px;
-}
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 2rem 0;
+            position: fixed;
+            height: 100vh;
+        }
 
-.sidebar .menu {
-	list-style: none;
-	padding: 0;
-}
+        .sidebar .logo {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
 
-.sidebar .menu li {
-	width: 100%;
-	padding: 15px;
-	text-align: center;
-	cursor: pointer;
-}
+        .sidebar .logo h2 {
+            font-size: 2rem;
+            margin: 0;
+            background: -webkit-linear-gradient(#fff, #ddd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-.sidebar .menu li.active {
-	background-color: #007bff;
-	color: white;
-}
+        .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-.content {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	background-color: #f1f1f1;
-	padding: 20px;
-}
+        .menu li {
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
 
-.header {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	margin-bottom: 20px;
-}
+        .menu li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            font-size: 1.1rem;
+        }
 
-.studio-info {
-	display: flex;
-	gap: 20px;
-}
+        .menu li.active {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid white;
+        }
 
-.studio-level {
-	background-color: #007bff;
-	color: white;
-	padding: 15px;
-	border-radius: 8px;
-	text-align: center;
-	font-size: 14px;
-	line-height: 1.5;
-}
+        .menu li:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
 
-.statistics {
-	display: flex;
-	align-items: center;
-	gap: 20px;
-}
+        .content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+        }
 
-.chart {
-	width: 100px;
-	height: 100px;
-	background-color: #ddd;
-	border-radius: 50%;
-}
+        .header {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
 
-.stats {
-	font-size: 14px;
-	text-align: center;
-}
+        .profile-info {
+            text-align: right;
+            font-weight: 500;
+        }
 
-.profile-info {
-	text-align: right;
-}
+        .school-list {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
 
-.profile-photo {
-	position: absolute;
-	top: 46px;
-	right: 5px;
-}
+        .school-list h1 {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
 
-.school-list {
-	background-color: white;
-	border-radius: 8px;
-	padding: 20px;
-}
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
 
-.school-list h1 {
-	margin-bottom: 20px;
-}
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
 
-.search-bar {
-	display: flex;
-	gap: 10px;
-	margin-bottom: 20px;
-}
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
 
-.search-bar input {
-	flex: 1;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-}
+        .search-bar button {
+            padding: 0.8rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-.search-bar button {
-	padding: 10px 20px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
+        .search-bar button:hover {
+            background-color: #357abd;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1rem;
+        }
 
-table {
-	width: 100%;
-	border-collapse: collapse;
-}
+        table th, table td {
+            padding: 1rem;
+            border: 1px solid #e1e1e1;
+        }
 
-table th, table td {
-	border: 1px solid #ccc;
-	padding: 10px;
-	text-align: left;
-}
+        table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
 
-table th {
-	background-color: #f8f9fa;
-}
+        table tr:hover {
+            background-color: #f8f9fa;
+        }
 
-table tbody tr:nth-child(odd) {
-	background-color: #f9f9f9;
-}
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 0.2rem;
+        }
+
+        .btn-edit {
+            background-color: var(--edit-color);
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background-color: #e67e22;
+            transform: translateY(-1px);
+        }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
+            transform: translateY(-1px);
+        }
 
 </style>
 </head>
@@ -168,7 +206,7 @@ table tbody tr:nth-child(odd) {
 				<h2>TVPSS</h2>
 			</div>
 			<ul class="menu">
-				<li><a href=" ">Profile</a></li>
+				<li><a href="manageUser">Users</a></li>
 				<li class="active"><a href=" ">School Management</a></li>
 				<li><a href=" ">Resource</a></li>
 			</ul>
@@ -187,6 +225,9 @@ table tbody tr:nth-child(odd) {
 				<div class="search-bar">
 					<input type="text" placeholder="Search school">
 					<button>Search</button>
+				</div>
+				<div class="search-bar">
+					<button><a href="addSchool">Add School</a></button>
 				</div>
 				<table>
 					<thead>
