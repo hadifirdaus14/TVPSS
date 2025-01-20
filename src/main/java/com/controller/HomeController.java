@@ -20,15 +20,33 @@ public class HomeController {
 	@Autowired //dependency injection
     private SchoolDAO schoolDAO;
 
-    @GetMapping("/manageSchoolInfo")
-    public String manageSchoolInfo() {
-        return "manageSchoolInfo"; // Navigates to /WEB-INF/views/manageSchoolInfo.jsp
+	//Endpoint to display school list for schoolPIC/crew
+    @RequestMapping("/manageSchoolInfo")
+    public ModelAndView SchoolListPIC() {
+        ModelAndView modelAndView = new ModelAndView("manageSchoolInfo"); // Make sure the JSP name is correct
+        try {
+            // Fetch the list of schools from the DAO
+            List<School> school = schoolDAO.getAllSchools();
+            modelAndView.addObject("schools", school); 
+            modelAndView.addObject("currentPage", "SchoolListPIC");
+        } catch (Exception e) {
+            modelAndView.addObject("error", "Error fetching schools: " + e.getMessage());
+        }
+        return modelAndView;
     }
     
+    //Endpoint to display school list for admin
     @RequestMapping("/manageSchool")
-    public ModelAndView manageSchool() {
-        ModelAndView modelAndView = new ModelAndView("manageSchool");
-        modelAndView.addObject("currentPage", "manageSchool");
+    public ModelAndView SchoolList() {
+        ModelAndView modelAndView = new ModelAndView("manageSchool"); // Make sure the JSP name is correct
+        try {
+            // Fetch the list of schools from the DAO
+            List<School> school = schoolDAO.getAllSchools();
+            modelAndView.addObject("schools", school); // Use 'schools' instead of 'school' for plural consistency
+            modelAndView.addObject("currentPage", "SchoolList");
+        } catch (Exception e) {
+            modelAndView.addObject("error", "Error fetching schools: " + e.getMessage());
+        }
         return modelAndView;
     }
     

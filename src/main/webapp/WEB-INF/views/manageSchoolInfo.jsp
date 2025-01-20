@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -201,10 +202,10 @@ table tbody tr:nth-child(odd) {
 						<c:forEach var="school" items="${schools}">
 							<tr id="row${school.id}">
 								<td>${school.id}</td>
-								<td id="code${school.id}" data-code="${school.code}">${school.code}</td>
-								<td id="name${school.id}" data-name="${school.name}">${school.name}</td>
-								<td id="type${school.id}" data-type="${school.type}">${school.type}</td>
-								<td id="district${school.id}" data-district="${school.district}">${school.district}</td>
+								<td>${school.code}</td>
+								<td>${school.name}</td>
+								<td>${school.type}</td>
+								<td>${school.district}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
