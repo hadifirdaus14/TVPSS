@@ -242,7 +242,7 @@ table tbody tr:nth-child(odd) {
 								<td id="type${school.id}" data-type="${school.type}">${school.type}</td>
 								<td id="district${school.id}" data-district="${school.district}">${school.district}</td>
 								<td>
-									<button class="btn btn-edit" ><a href="editSchool.html" class="btn btn-edit">Edit</a></button>
+									<button class="btn btn-edit" ><a href="editUser" class="btn btn-edit">Edit</a></button>
 									<button class="btn btn-delete" onclick="deleteRecord">Delete</button>
 								</td>
 							</tr>
