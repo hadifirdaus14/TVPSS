@@ -1,7 +1,6 @@
 package com.service;
 
 import com.model.School;
-import com.controller.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;

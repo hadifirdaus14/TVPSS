@@ -10,7 +10,7 @@
     <p>Welcome to the School Management System!</p>
     <nav>
         <ul>
-            <li><a href="view-school-list">Manage School</a></li>
+            <li><a href="manageSchool">Manage School</a></li>
             <li><a href="manageSchoolInfo">Manage School Info</a></li>
             <li><a href="login">Login</a></li>
             <li><a href="register">Register</a></li>
