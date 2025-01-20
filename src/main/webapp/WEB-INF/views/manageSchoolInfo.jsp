@@ -188,6 +188,9 @@ table tbody tr:nth-child(odd) {
 					<input type="text" placeholder="Search school">
 					<button>Search</button>
 				</div>
+				<div class="search-bar">
+					<button><a href="addSchool">Add School</a></button>
+				</div>
 				<table>
 					<thead>
 						<tr>

@@ -4,8 +4,11 @@ import com.model.School;
 import com.service.SchoolDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,6 +17,13 @@ public class SchoolController {
 
     @Autowired //dependency injection
     private SchoolDAO schoolDAO;
+    
+    @RequestMapping("/addSchool")
+    public ModelAndView addschool() {
+        ModelAndView modelAndView = new ModelAndView("addSchool");
+        modelAndView.addObject("currentPage", "addSchool");
+        return modelAndView;
+    }
     
     //Endpoint to fetch school details for editing
     @GetMapping("/edit")
@@ -24,24 +34,18 @@ public class SchoolController {
         return modelAndView;
     }
     
-    // Endpoint to handle school update form submission
     @PostMapping("/updateSchool")
-    public String updateSchool(@RequestParam("code") String code,
-                               @RequestParam("name") String name,
-                               @RequestParam("type") String type,
-                               @RequestParam("district") String district) {
-        // Create a new school object with updated details
-        School school = new School(code, name, type, district);
-        
-        // Update the school in the database
+    public String updateSchool(@ModelAttribute School school, Model model) {
+        // Save the updated school data
         schoolDAO.updateSchool(school);
-        
-        // Redirect to the school list page after updating
-        return "redirect:/school-list";
+
+        // Redirect to the management page
+        return "redirect:/manageSchool";
     }
 
+
     public void addSchool() {
-        School school = new School("JBA3002", "SK MUZAFFAR SHAH", "Primary School", "Kota Tinggi");
+        School school = new School();
         schoolDAO.saveSchool(school);
     }
     

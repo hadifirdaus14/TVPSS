@@ -194,6 +194,45 @@ table tbody tr:nth-child(odd) {
 .btn-delete:hover {
 	background-color: #c82333;
 }
+
+#editForm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+#editForm form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#editForm input,
+#editForm select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#editForm button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#editForm button:hover {
+    background-color: #0056b3;
+}
+
 </style>
 </head>
 <body>
@@ -203,7 +242,7 @@ table tbody tr:nth-child(odd) {
 				<h2>TVPSS</h2>
 			</div>
 			<ul class="menu">
-				<li><a href=" ">Profile</a></li>
+				<li><a href="manageUser">Users</a></li>
 				<li class="active"><a href=" ">School Management</a></li>
 				<li><a href=" ">Resource</a></li>
 			</ul>
@@ -236,15 +275,15 @@ table tbody tr:nth-child(odd) {
 					</thead>
 					<tbody>
 						<c:forEach var="school" items="${schools}">
-							<tr id="row${school.id}">
+							<tr id="row${school.id}" data-debug="true">
 								<td>${school.id}</td>
-								<td>${school.code}</td>
-								<td>${school.name}</td>
-								<td>${school.type}</td>
-								<td>${school.district}</td>
+								<td data-code="${school.code}">${school.code}</td>
+							    <td data-name="${school.name}">${school.name}</td>
+							    <td data-type="${school.type}">${school.type}</td>
+							    <td data-district="${school.district}">${school.district}</td>
 								<td>
-									<a href="${pageContext.request.contextPath}/edit" class="btn btn-edit"> Edit </a>
-									<button class="btn btn-delete" onclick="deleteRecord">Delete</button>
+									<button class="btn btn-edit" onclick="editForm(${school.id})" data-school-id="${school.id}">Edit</button>
+									<button class="btn btn-delete" onclick="deleteRecord(${school.id})">Delete</button>
 								</td>
 							</tr>
 						</c:forEach>
@@ -253,32 +292,72 @@ table tbody tr:nth-child(odd) {
 			</section>
 		</main>
 	</div>
+	<div id="editForm" style="display: none;">
+		<form id="updateForm" action="/updateSchool" method="POST">
+			<label for="schoolCode">School Code:</label>
+		    <input type="text" id="editCode" name="code" placeholder="School Code">
+		    <label for="schoolName">School Name:</label>
+		    <input type="text" id="editName" name="name" placeholder="School Name">
+		    <label for="schoolType">School Type:</label>
+		    <select id="schoolType" name="type">
+		        <option value="primary">Primary School</option>
+		        <option value="secondary">Secondary School</option>
+	    	</select>
+	    	<label for="schoolDistrict">District:</label>
+		    <input type="text" id="editDistrict" name="district" placeholder="District">
+		    <button type="submit">Save</button>
+		</form>
+
+	</div>
 
 	<script>
+	
+	function editForm(id) {
+		//see what we're receiving
+	    console.log("Edit function called with ID:", id);
+	    console.log("Type of ID:", typeof id);
+	    
+	    //look for the row directly
+	    const rowId = `row${id}`;
+	    console.log("Looking for row with ID:", rowId);
+	    
+	    //see ALL rows in the table
+	    const allRows = document.querySelectorAll('table tbody tr');
+	    console.log("All table rows:", allRows);
+	    
+	    //specifically look at row IDs
+	    allRows.forEach(row => {
+	        console.log("Found row with ID:", row.id);
+	    });
+	    
+	    const row = document.getElementById(rowId);
+	    
+	    if (!row) {
+	        console.warn(`Unable to find row with ID: ${rowId}`);
+	        console.log("Current table structure:", document.querySelector('table').innerHTML);
+	        alert(`Row with ID ${rowId} not found!`);
+	        return;
+	    }
 
-	function saveRecord(id) {
-	    // Update the row data with the form values
-	    const code = document.getElementById('editCode').value;
-	    const name = document.getElementById('editName').value;
-	    const type = document.getElementById('schoolType').value;
-	    const district = document.getElementById('editDistrict').value;
+	    // Get the cell values
+	    const code = row.querySelector('td[data-code]')?.textContent;
+	    const name = row.querySelector('td[data-name]')?.textContent;
+	    const type = row.querySelector('td[data-type]')?.textContent;
+	    const district = row.querySelector('td[data-district]')?.textContent;
 
-	    // Update the table row
-	    document.getElementById(`code${id}`).textContent = code;
-	    document.getElementById(`code${id}`).setAttribute('data-code', code);
+	    console.log('Retrieved values:', { code, name, type, district });
 
-	    document.getElementById(`name${id}`).textContent = name;
-	    document.getElementById(`name${id}`).setAttribute('data-name', name);
+	    // Populate the form
+	    document.getElementById('editCode').value = code || '';
+	    document.getElementById('editName').value = name || '';
+	    document.getElementById('schoolType').value = type?.toLowerCase() || 'primary';
+	    document.getElementById('editDistrict').value = district || '';
 
-	    document.getElementById(`type${id}`).textContent = type;
-	    document.getElementById(`type${id}`).setAttribute('data-type', type);
-
-	    document.getElementById(`district${id}`).textContent = district;
-	    document.getElementById(`district${id}`).setAttribute('data-district', district);
-
-	    // Hide the form
-	    document.getElementById('editForm').style.display = 'none';
+	    // Show the form
+	    const editForm = document.getElementById('editForm');
+	    editForm.style.display = 'block';
 	}
+
 
 	function deleteRecord(id) {
 	    if (confirm("Are you sure you want to delete this record?")) {

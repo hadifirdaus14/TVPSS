@@ -69,7 +69,7 @@
         <input type="text" id="district" name="district" placeholder="Enter district" required />
 
         <button type="submit">Add School</button>
-        <button type="button" class="cancel" onclick="window.location.href='/view-school-list';">Cancel</button>
+        <button type="button" class="cancel" onclick="window.location.href='/manageSchoolInfo';">Cancel</button>
     </form>
 </body>
 </html>
