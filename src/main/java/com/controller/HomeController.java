@@ -128,14 +128,21 @@ public class HomeController {
     }
     
     @PostMapping("/updateUser")
-    public String updateUser(@ModelAttribute PIC pic, Model model) {
-        // Save the updated school data
-    	System.out.println("Updating PIC: " + pic);
-
-        picDao.updatePIC(pic);
-
-        // Redirect to the management page
-        return "redirect:/manageUser";
+    public String updateUser(@ModelAttribute PIC pic, @RequestParam int schoolId) {
+        try {
+            // Get the school by ID
+            School school = schoolDAO.getSchoolById(schoolId);
+            // Set the school to the PIC object
+            pic.setSchool(school);
+            
+            System.out.println("Updating PIC: " + pic);
+            picDao.updatePIC(pic);
+            
+            return "redirect:/manageUser";
+        } catch (Exception e) {
+            System.err.println("Error updating PIC: " + e.getMessage());
+            return "redirect:/manageUser?error=true";
+        }
     }
 
 }
