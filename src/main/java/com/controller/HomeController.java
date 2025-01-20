@@ -69,7 +69,7 @@ public class HomeController {
     @GetMapping("/")
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject("message", "Welcome to the Spring Web App!");
+        modelAndView.addObject("message", "Welcome!");
         return modelAndView; // Navigates to /WEB-INF/views/home.jsp
     }
 }
