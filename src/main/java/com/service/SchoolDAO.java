@@ -11,51 +11,48 @@ import java.util.List;
 @Service
 public class SchoolDAO {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+	@PersistenceContext
+	private EntityManager entityManager;
 
-    @Transactional
-    public void saveSchool(School school) {
-        try {
-            entityManager.persist(school);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e; 
-        }
-    }
+	@Transactional
+	public void saveSchool(School school) {
+		try {
+			entityManager.persist(school);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
-    public School getSchoolById(int id) {
-        return entityManager.find(School.class, id);
-    }
+	// Find a school by ID
+	public School findById(int id) {
+		try {
+			return entityManager.find(School.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-    public List<School> getAllSchools() {
-    	return entityManager.createQuery("FROM School", School.class).getResultList();
-    }
+	public School getSchoolById(int id) {
+		return entityManager.find(School.class, id);
+	}
 
-    @Transactional
-    public void updateSchool(School school) {
-        entityManager.merge(school);
-    }
+	public List<School> getAllSchools() {
+		return entityManager.createQuery("FROM School", School.class).getResultList();
+	}
 
-    @Transactional
-    public void deleteSchool(int id) {
-        try {
-            System.out.println("Finding school with ID: " + id);
-            School school = entityManager.find(School.class, id);
-            
-            if (school != null) {
-                System.out.println("Found school, attempting to remove");
-                entityManager.remove(school);
-                entityManager.flush(); // Force the delete to happen now
-                System.out.println("School removed successfully");
-            } else {
-                System.out.println("No school found with ID: " + id);
-                throw new IllegalArgumentException("School not found with ID: " + id);
-            }
-        } catch (Exception e) {
-            System.err.println("Error in deleteSchool service method: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
-        }
-    }
+	@Transactional
+	public void updateSchool(School school) {
+		entityManager.merge(school);
+	}
+
+	@Transactional
+	public void deleteSchool(int id) {
+		School school = getSchoolById(id);
+		if (school != null) {
+			entityManager.remove(school);
+		}
+	}
+
 }
