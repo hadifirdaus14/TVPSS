@@ -112,6 +112,7 @@
                 <li><a href="manageSchool">School List (Admin)</a></li>
                 <li><a href="manageSchoolInfo">School List (PIC/Crew)</a></li>
                 <li><a href="manageUser">Manage Users</a></li>
+                <li><a href="manageResource">Manage Resource</a></li>
             </ul>
         </nav>
     </div>

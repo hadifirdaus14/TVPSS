@@ -7,12 +7,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.model.PIC;
+import com.model.School;
 
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Service
 public class PICDAO {
 
+	@PersistenceContext
+    private EntityManager entityManager;
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -41,9 +48,8 @@ public class PICDAO {
 	}
 
 	@Transactional
-	@SuppressWarnings("unchecked")
 	public List<PIC> getAllPICs() {
-		return getCurrentSession().createQuery("from pic").list();
+		return entityManager.createQuery("FROM pic", PIC.class).getResultList();
 	}
 
 	@Transactional

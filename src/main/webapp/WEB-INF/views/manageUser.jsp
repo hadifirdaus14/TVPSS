@@ -240,7 +240,7 @@ table tbody tr:nth-child(odd) {
 								<td>${pic.id}</td>
 								<td id="name${pic.id}" data-name="${pic.name}">${pic.name}</td>
 								<td id="age${pic.id}" data-age="${pic.age}">${pic.age}</td>
-								<td id="school${pic.id}" data-school="${pic.school_id}">${pic.school_id}</td>
+								<td id="school${pic.id}" data-school="${pic.school.id}">${pic.school.id}</td>
 								<td>
 									<button class="btn btn-edit" onclick="editRecord">Edit</button>
 									<button class="btn btn-delete" onclick="deleteRecord">Delete</button>
