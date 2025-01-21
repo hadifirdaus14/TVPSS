@@ -4,6 +4,7 @@
     <title>Manage Reports</title>
 </head>
 <body>
+
     <h1>Manage Reports</h1>
 
     <table border="1">
