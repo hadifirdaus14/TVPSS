@@ -1,6 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="form"%>
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
 <title>Admin Dashboard</title>
 </head>
