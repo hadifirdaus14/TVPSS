@@ -9,195 +9,213 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<style>
-body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-}
 
-.container {
-	display: flex;
-	height: 100vh;
-}
+<head>
+    <meta charset="UTF-8">
+    <title>PIC Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5f6fa;
+            --danger-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+            --text-color: #2c3e50;
+            --sidebar-width: 250px;
+        }
 
-.sidebar {
-	width: 250px;
-	background-color: #f8f9fa;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 20px 0;
-	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--secondary-color);
+            margin: 0;
+            min-height: 100vh;
+        }
 
-.sidebar .logo img {
-	width: 80%;
-	margin-bottom: 30px;
-}
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            max-width: none;
+        }
 
-.sidebar .menu {
-	list-style: none;
-	padding: 0;
-}
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, #2c3e50 0%, #3498db 100%);
+            padding: 2rem 0;
+            position: fixed;
+            height: 100vh;
+            color: white;
+        }
 
-.sidebar .menu li {
-	width: 100%;
-	padding: 15px;
-	text-align: center;
-	cursor: pointer;
-}
+        .sidebar header {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            background: -webkit-linear-gradient(#fff, #ddd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-.sidebar .menu li.active {
-	background-color: #007bff;
-	color: white;
-}
+        .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-.content {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	background-color: #f1f1f1;
-	padding: 20px;
-}
+        .menu li {
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
 
-.header {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	margin-bottom: 20px;
-}
+        .menu li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            font-size: 1.1rem;
+        }
 
-.studio-info {
-	display: flex;
-	gap: 20px;
-}
+        .menu li.active {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid white;
+        }
 
-.studio-level {
-	background-color: #007bff;
-	color: white;
-	padding: 15px;
-	border-radius: 8px;
-	text-align: center;
-	font-size: 14px;
-	line-height: 1.5;
-}
+        .content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+        }
 
-.statistics {
-	display: flex;
-	align-items: center;
-	gap: 20px;
-}
+        .header {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
 
-.chart {
-	width: 100px;
-	height: 100px;
-	background-color: #ddd;
-	border-radius: 50%;
-}
+        .profile-info {
+            text-align: right;
+            font-weight: 500;
+            color: var(--text-color);
+        }
 
-.stats {
-	font-size: 14px;
-	text-align: center;
-}
+        .school-list {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
 
-.profile-info {
-	text-align: right;
-}
+        .school-list h1 {
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 600;
+        }
 
-.profile-photo {
-	position: absolute;
-	top: 46px;
-	right: 5px;
-}
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
 
-.school-list {
-	background-color: white;
-	border-radius: 8px;
-	padding: 20px;
-}
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
 
-.school-list h1 {
-	margin-bottom: 20px;
-}
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
 
-.search-bar {
-	display: flex;
-	gap: 10px;
-	margin-bottom: 20px;
-}
+        .search-bar button {
+            padding: 0.8rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
 
-.search-bar input {
-	flex: 1;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-}
+        .search-bar button:hover {
+            background-color: #357abd;
+            transform: translateY(-1px);
+        }
 
-.search-bar button {
-	padding: 10px 20px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1rem;
+        }
 
-table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-table th, table td {
-	border: 1px solid #ccc;
-	padding: 10px;
-	text-align: left;
-}
+        table th, table td {
+            padding: 1.2rem;
+            border: 1px solid #e1e1e1;
+        }
 
 table th {
-	background-color: #f8f9fa;
-}
+            background-color: #f8f9fa;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
 
-table tbody tr:nth-child(odd) {
-	background-color: #f9f9f9;
-}
+        table tr:hover {
+            background-color: #f8f9fa;
+        }
 
-.btn {
-	padding: 5px 10px;
-	font-size: 12px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 0.3rem;
+        }
 
-.btn-add {
-	padding: 10px 20px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	margin-bottom: 10px;
-}
+        .btn-edit {
+            background-color: var(--warning-color);
+            color: white;
+        }
 
-.btn-edit {
-	background-color: orange;
-	color: white;
-}
+        .btn-delete {
+            background-color: var(--danger-color);
+            color: white;
+        }
 
-.btn-edit:hover {
-	background-color: #ffc00b;
-}
+        .btn-edit:hover, .btn-delete:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
 
-.btn-delete {
-	background-color: #dc3545;
-	color: white;
-}
-
-.btn-delete:hover {
-	background-color: #c82333;
-}
-</style>
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
 	<div class="container">
@@ -237,14 +255,14 @@ table tbody tr:nth-child(odd) {
 					<tbody>
 						<c:forEach var="pic" items="${pics}">
 							<tr id="row${pic.id}">
-								<td>${pic.id}</td>
-								<td id="name${pic.id}" data-name="${pic.name}">${pic.name}</td>
-								<td id="age${pic.id}" data-age="${pic.age}">${pic.age}</td>
-								<td id="school${pic.id}" data-school="${pic.school.id}">${pic.school.id}</td>
-								<td>
-									<button class="btn btn-edit" onclick="editRecord">Edit</button>
-									<button class="btn btn-delete" onclick="deleteRecord">Delete</button>
-								</td>
+							    <td>${pic.id}</td>
+							    <td data-name="${pic.name}">${pic.name}</td>
+							    <td data-age="${pic.age}">${pic.age}</td>
+							    <td data-school="${pic.school.name}">${pic.school.name}</td>
+							    <td>
+							        <button class="btn btn-edit" onclick="editForm('${pic.id}')">Edit</button>
+							        <button class="btn btn-delete" onclick="deleteRecord('${pic.id}')">Delete</button>
+							    </td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -254,69 +272,53 @@ table tbody tr:nth-child(odd) {
 	</div>
 	
 
-	<div id="editForm" style="display: none;">
-		<form id="updateForm">
-			<input type="text" id="editName" name="name"
-				placeholder="PIC Name"> 
-			<input type="number" id="editAge"
-				name="age" placeholder="PIC age"> 
-			<label for="schoolId" class="form-label">School</label> 
-			<select class="form-select" id="schoolId" name="schoolId" required>
-					<option value="">Select school</option>
-					<c:forEach items="${schools}" var="school">
-						<option value="${school.id}">${school.name}</option>
-					</c:forEach>
-			</select>
-			<button type="button" onclick="saveRecord(1)">Save</button>
-		</form>
-	</div>
+<script>
+function editForm(id) {
+    console.log("Editing school with ID:", id);
+    // Create and submit a form to navigate to edit page
+    const form = document.createElement('form');
+    form.method = 'GET';
+    form.action = 'editUser';
 
-	<script>
-	function editRecord(id) {
-	    // Show the form
-	    document.getElementById('editForm').style.display = 'block';
+    // Create hidden input for ID
+    const idInput = document.createElement('input');
+    idInput.type = 'hidden';
+    idInput.name = 'id';
+    idInput.value = id;
 
-	    // Pre-fill the form with data
-	    const code = document.getElementById(`code${id}`).getAttribute('data-name');
-	    const name = document.getElementById(`name${id}`).getAttribute('data-age');
-	    const type = document.getElementById(`school${id}`).getAttribute('data-school');
+    // Add input to form
+    form.appendChild(idInput);
 
-	    document.getElementById('editName').value = name;
-	    document.getElementById('editAge').value = age;
-	    document.getElementById('schoolId').value = schoolId;
-	}
+    // Add form to document and submit
+    document.body.appendChild(form);
+    form.submit();
+}
 
-	function saveRecord(id) {
-	    // Update the row data with the form values
-	    const name = document.getElementById('editName').value;
-	    const type = document.getElementById('editAge').value;
-	    const district = document.getElementById('schoolId').value;
+function deleteRecord(id) {
+    console.log("Attempting to delete school with ID:", id);
+    
+    if (confirm("Are you sure you want to delete this school?")) {
+        // Create a form dynamically
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'deleteUser';
 
-	    // Update the table row
+        // Create hidden input for ID
+        const idInput = document.createElement('input');
+        idInput.type = 'hidden';
+        idInput.name = 'id';
+        idInput.value = id;
 
-	    document.getElementById(`name${id}`).textContent = name;
-	    document.getElementById(`name${id}`).setAttribute('data-name', name);
+        // Add the input to form
+        form.appendChild(idInput);
 
-	    document.getElementById(`age${id}`).textContent = age;
-	    document.getElementById(`age${id}`).setAttribute('data-age', age);
-
-	    document.getElementById(`schoolId${id}`).textContent = schoolId;
-	    document.getElementById(`schoolId${id}`).setAttribute('data-school', schoolId);
-
-	    // Hide the form
-	    document.getElementById('editForm').style.display = 'none';
-	}
-
-	function deleteRecord(id) {
-	    if (confirm("Are you sure you want to delete this record?")) {
-	        const row = document.getElementById(`row${id}`);
-	        if (row) {
-	            row.remove();
-	        }
-	    }
-	}
-
-	</script>
+        // Add form to document and submit
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
+</script>
+	
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
